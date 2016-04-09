@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using WatiN.Core;
+using WatiN.Core.DialogHandlers;
 using WebSiteTest.Parameters;
 using WebSiteTest.Test;
 using WebSiteTest.Test.Commands;
@@ -15,6 +17,8 @@ namespace WebSiteTest
         private Projects _myProjects;
         private IE _myBrowser;
         private bool _testStatus = false;
+        private ListViewItem _selectCommand;
+        private bool _textChangeControl = false;
 
         public Form1()
         {
@@ -98,26 +102,32 @@ namespace WebSiteTest
         [STAThread]
         private void CallTestPage(Project project)
         {
-            foreach (var cmd in from ListViewItem item in lstCommands.Items select TestManager.Commands.Find(c =>
-            {
-                item.Selected = true;
-                lstCommands.Select();
+            foreach (var cmd in from ListViewItem item in lstCommands.Items
+                select TestManager.Commands.Find(c =>
+                {
+                    item.Selected = true;
+                    lstCommands.Select();
 
-                if (c.GetCommandName() == item.Text)
-                {
-                    c.Target = item.SubItems[1].Text;
-                    c.Value = item.SubItems[2].Text;
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }))
+                    if (c.GetCommandName() == item.Text)
+                    {
+                        c.Target = item.SubItems[1].Text;
+                        c.Value = item.SubItems[2].Text;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }))
             {
+
                 TestManager.RunTest(project, cmd);
             }
         }
+
+
+
+
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -140,12 +150,24 @@ namespace WebSiteTest
             txtTarget.Text = "";
             txtValue.Text = "";
             cmbCommands.SelectedIndex = 1;
+
+            _selectCommand = null;
         }
 
         private void cmbCommands_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtTarget.Text = "";
-            txtValue.Text = "";
+            if (_textChangeControl) return;
+
+            if (_selectCommand != null)
+            {
+                _selectCommand.Text = cmbCommands.Text;
+            }
+            else
+            {
+                txtTarget.Text = "";
+                txtValue.Text = "";
+            }
+
         }
 
         private void saveTestToolStripMenuItem_Click(object sender, EventArgs e)
@@ -213,6 +235,8 @@ namespace WebSiteTest
 
         private void lstCommands_SelectedIndexChanged(object sender, EventArgs e)
         {
+            _textChangeControl = true;
+
             if (_testStatus != false || lstCommands.SelectedItems.Count == 0) return;
 
             txtTarget.Text = lstCommands.SelectedItems[0].SubItems[1].Text;
@@ -222,9 +246,31 @@ namespace WebSiteTest
             {
                 if (cmbCommands.Items[i].ToString() == lstCommands.SelectedItems[0].Text)
                 {
+                    _selectCommand = lstCommands.SelectedItems[0];
                     cmbCommands.SelectedIndex = i;
+
+                    _textChangeControl = false;
+
                     return;
                 }
+            }
+
+            _textChangeControl = false;
+        }
+
+        private void txtValue_TextChanged(object sender, EventArgs e)
+        {
+            if (_selectCommand!= null && _textChangeControl == false)
+            {
+                _selectCommand.SubItems[2].Text = txtValue.Text;
+            }
+        }
+
+        private void txtTarget_TextChanged(object sender, EventArgs e)
+        {
+            if (_selectCommand != null && _textChangeControl == false)
+            {
+                _selectCommand.SubItems[1].Text = txtTarget.Text;
             }
         }
     }

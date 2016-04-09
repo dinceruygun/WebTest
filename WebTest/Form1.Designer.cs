@@ -50,6 +50,7 @@
             this.openTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -64,9 +65,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.splitContainer1);
-            this.panel1.Location = new System.Drawing.Point(12, 85);
+            this.panel1.Location = new System.Drawing.Point(12, 56);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(609, 480);
+            this.panel1.Size = new System.Drawing.Size(609, 509);
             this.panel1.TabIndex = 0;
             // 
             // splitContainer1
@@ -90,7 +91,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.txtValue);
             this.splitContainer1.Panel2.Controls.Add(this.txtTarget);
             this.splitContainer1.Panel2.Controls.Add(this.cmbCommands);
-            this.splitContainer1.Size = new System.Drawing.Size(609, 480);
+            this.splitContainer1.Size = new System.Drawing.Size(609, 509);
             this.splitContainer1.SplitterDistance = 288;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -102,7 +103,7 @@
             this.lstHostList.FormattingEnabled = true;
             this.lstHostList.Location = new System.Drawing.Point(3, 37);
             this.lstHostList.Name = "lstHostList";
-            this.lstHostList.Size = new System.Drawing.Size(282, 433);
+            this.lstHostList.Size = new System.Drawing.Size(282, 459);
             this.lstHostList.TabIndex = 3;
             // 
             // btnAddHost
@@ -139,7 +140,7 @@
             this.lstCommands.Location = new System.Drawing.Point(3, 118);
             this.lstCommands.MultiSelect = false;
             this.lstCommands.Name = "lstCommands";
-            this.lstCommands.Size = new System.Drawing.Size(311, 352);
+            this.lstCommands.Size = new System.Drawing.Size(311, 381);
             this.lstCommands.TabIndex = 6;
             this.lstCommands.UseCompatibleStateImageBehavior = false;
             this.lstCommands.View = System.Windows.Forms.View.Details;
@@ -195,6 +196,7 @@
             this.txtValue.Name = "txtValue";
             this.txtValue.Size = new System.Drawing.Size(237, 20);
             this.txtValue.TabIndex = 3;
+            this.txtValue.TextChanged += new System.EventHandler(this.txtValue_TextChanged);
             // 
             // txtTarget
             // 
@@ -203,6 +205,7 @@
             this.txtTarget.Name = "txtTarget";
             this.txtTarget.Size = new System.Drawing.Size(237, 20);
             this.txtTarget.TabIndex = 2;
+            this.txtTarget.TextChanged += new System.EventHandler(this.txtTarget_TextChanged);
             // 
             // cmbCommands
             // 
@@ -227,7 +230,7 @@
             // 
             // btnStop
             // 
-            this.btnStop.Location = new System.Drawing.Point(12, 56);
+            this.btnStop.Location = new System.Drawing.Point(93, 27);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(75, 23);
             this.btnStop.TabIndex = 2;
@@ -257,29 +260,39 @@
             // openTestToolStripMenuItem
             // 
             this.openTestToolStripMenuItem.Name = "openTestToolStripMenuItem";
-            this.openTestToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openTestToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.openTestToolStripMenuItem.Text = "Open Test";
             this.openTestToolStripMenuItem.Click += new System.EventHandler(this.openTestToolStripMenuItem_Click);
             // 
             // saveTestToolStripMenuItem
             // 
             this.saveTestToolStripMenuItem.Name = "saveTestToolStripMenuItem";
-            this.saveTestToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveTestToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.saveTestToolStripMenuItem.Text = "Save Test";
             this.saveTestToolStripMenuItem.Click += new System.EventHandler(this.saveTestToolStripMenuItem_Click);
             // 
             // saveAsTestToolStripMenuItem
             // 
             this.saveAsTestToolStripMenuItem.Name = "saveAsTestToolStripMenuItem";
-            this.saveAsTestToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveAsTestToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.saveAsTestToolStripMenuItem.Text = "Save As Test";
             this.saveAsTestToolStripMenuItem.Click += new System.EventHandler(this.saveAsTestToolStripMenuItem_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(174, 27);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Timer";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(633, 577);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.panel1);
@@ -327,6 +340,7 @@
         private System.Windows.Forms.ToolStripMenuItem openTestToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveTestToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsTestToolStripMenuItem;
+        private System.Windows.Forms.Button button1;
     }
 }
 
